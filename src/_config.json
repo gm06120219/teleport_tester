@@ -1,0 +1,19 @@
+{
+  "idc": "gddb.vlinsys.net",
+  "developer_id": "1001",
+  
+  "send_file": "../resource/1.jpg",
+  "send_file_type": ".jpg",
+  "send_user_number": 50,
+  "send_endless": true,
+  "send_times": 5,
+  "send_random_time": 100,
+  "send_make_reconnect": true,
+
+  "request_user_number": 200,
+  "request_endless": true,
+  "request_send_times": 5,
+  "request_random_time": 50,
+  "request_make_reconnect": true
+
+}

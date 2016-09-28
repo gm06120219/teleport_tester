@@ -1,0 +1,32 @@
+初始化
+1] package.json已定义好相关nodejs的三方库，直接使用npm install即可初始化安装
+2] 测试配置文件为/src/_config.json，分别定义了IDC地址，所属开发商，用户数，用户所发文件数，所发文件路径
+
+开始测试收发文件
+1] 测试时，先启动/src/start_receiver.js，启动接收方，等待接收文件
+2] 再启动/src/start_sender.js，向接收方发送文件
+example:
+新起一个终端窗口
+$cd /Users/liguangming/gm_code/teleport_test/src/
+$node start_receiver.js
+
+新起一个终端窗口
+$cd /Users/liguangming/gm_code/teleport_test/src/
+$node start_sender.js
+
+
+
+开始测试收发信息
+1] 测试时，先启动/src/start_t_responser.js，启动接收方，等待接收信息
+2] 再启动/src/start_t_requester.js，向接收方发送信息
+example:
+新起一个终端窗口
+$cd /Users/liguangming/gm_code/teleport_test/src/
+$node start_t_responser.js
+
+新起一个终端窗口
+$cd /Users/liguangming/gm_code/teleport_test/src/
+$node start_t_requester.js
+
+清理测试的垃圾文件
+运行clean脚本
