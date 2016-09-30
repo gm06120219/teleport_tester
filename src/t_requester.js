@@ -57,7 +57,7 @@ t_requester.prototype.start_request = function() {
       if (self.loop == true && (Config.send_endless || self.current_times < self.send_times)) {
         setTimeout(function() {
           if (!self.u.client.ws) {
-            console.log(self.session_id + ' \'s ws is closed.');
+            console.log(self.session_id + ' \'s ws is closed at timeout callback.');
             return;
           }
           self.send_request();
@@ -83,15 +83,19 @@ t_requester.prototype.send_request = function() {
   }
 
   if (!self.u.client.ws) {
-    console.log(self.session_id + ' \'s ws is closed.');
+    console.log(self.session_id + ' \'s ws is closed at send_request.');
     return;
   }
   self.u.client.request(request_msg);
 }
 
 t_requester.prototype.stop_request = function() {
-  this.loop == false;
+  this.loop = false;
   var self = this;
+  if (!self.u.client.ws) {
+    console.log(self.session_id + ' \'s ws is closed at stop_request.');
+    return;
+  }
   self.u.client.close();
 }
 

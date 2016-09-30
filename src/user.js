@@ -22,46 +22,6 @@ function user(session_id) {
   this.idc = Config.idc;
 }
 
-// user.prototype = new Emitter();
-
-// user.prototype._getSession = function() {
-//   // get session for get user's id
-//   self = this;
-
-//   var post_data = Querystring.stringify({
-//     username: self.username,
-//     password: self.password,
-//     developer_id: self.developer_id
-//   });
-
-//   var post_option = {
-//     hostname: self.idc,
-//     port: 443,
-//     path: '/api/sessions/get_session',
-//     headers: {
-//       'Content-Type' : 'application/x-www-form-urlencoded',
-//       'Content-Length' : post_data.length
-//     },
-//     method: 'POST'
-//   };
-
-//   var post_req = Https.request(post_option, function(res){
-//     res.on('data', function(buffer){
-//       res = JSON.parse(buffer.toString());
-//       if(res.Rescode === 10000){
-//         self.logDebug('get_session success. user_id: ' + res.Data.user_id);
-//         self.user_id = res.Data.user_id;
-//         self.emit('get_session');
-//       }else{
-//         self.logError('get_session error. error message: ' + buffer.toString());
-//         self.emit('get_session');
-//       }
-//     });
-//   });
-//   post_req.write(post_data);
-//   post_req.end();
-// };
-
 user.prototype.login = function() {
   var self = this;
   self.client = new Client({

@@ -191,6 +191,11 @@ Client.prototype.sendByteArray = function(buffer, to, description) {
 		to: to,
 		description: description
 	});
+
+	if (!self.ws) {
+		console.log('ws is null. ');
+		return;
+	}
 	this.ws.send(pack.toJSON());
 	this.ws.send(buffer, {
 		binary: true
@@ -222,6 +227,10 @@ Client.prototype.sendFile = function(file, to, description, fn) {
 
 
 			s.on('data', function(d) {
+				if (!self.ws || self.ws.readyState != 1) {
+					console.log('ws is null. ');
+					return;
+				}
 				self.ws.send(bin.toJSON());
 				// console.log(d.length); // liguangming add for debug
 				self.ws.send(d, {
@@ -266,15 +275,17 @@ Client.prototype._proceedQueue = function() {
 	}
 	var self = this;
 	var pack = this.queue.shift();
-	try{
+	try {
 		this.ws.send(pack.toJSON(), function(error) {
 			if (error) {
 				self.logError(error);
 				self.queue.unshift(pack);
-				self.ws.close();
+				if (self.ws) {
+					self.ws.close();
+				}
 			}
 		});
-	} catch(e){
+	} catch (e) {
 		console.log(e);
 	}
 };
@@ -282,7 +293,9 @@ Client.prototype._proceedQueue = function() {
 Client.prototype._cleanUp = function() {
 	if (this.ws) {
 		this.ws.removeAllListeners();
-		this.ws.close();
+		if (this.ws) {
+			this.ws.close();
+		}
 		this.ws = null;
 	}
 	this.removeAllListeners(); // add by liguangming
@@ -581,9 +594,9 @@ Client.prototype._login = function() {
 			self._proceedQueue();
 		}
 	});
-	try{
+	try {
 		self.ws.send(pack.toJSON());
-	} catch(e){
+	} catch (e) {
 		console.log('ws send data failed.');
 		self.emit('login_fail');
 	}

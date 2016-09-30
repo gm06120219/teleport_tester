@@ -4,13 +4,13 @@
   
   "send_file": "../resource/1.jpg",
   "send_file_type": ".jpg",
-  "send_user_number": 50,
+  "send_user_number": 100,
   "send_endless": true,
   "send_times": 5,
   "send_random_time": 100,
   "send_make_reconnect": true,
 
-  "request_user_number": 200,
+  "request_user_number": 400,
   "request_endless": true,
   "request_send_times": 5,
   "request_random_time": 50,

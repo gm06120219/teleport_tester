@@ -20,7 +20,7 @@ function t_responser(session_id) {
 
   // process request
   u.client.on('request', function(msg, res) {
-    console.log(self.session_id + ' get a request. from ' + msg.from.session_id);
+    console.log(self.session_id + ' get a request.');
     // console.log(self.session_id + ' request message:' + JSON.stringify(msg));
 
     var ret_msg = {

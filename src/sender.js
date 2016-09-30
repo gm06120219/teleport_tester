@@ -16,13 +16,14 @@ function sender(session_id) {
 
 sender.prototype.start = function() {
   var self = this;
-  self.loop = true;
   self.u.login();
   self.u.client.on('login_success', function() {
+    self.loop = true;
     self.start_send();
   });
 
   self.u.client.on('login_fail', function() {
+    self.loop = false;
     self.stop();
   });
 };
@@ -35,10 +36,15 @@ sender.prototype.start_send = function() {
   var self = this;
 
   if (!self.u.client.ws) {
-    console.log(self.session_id + ' \'s ws is closed.');
+    console.log(self.session_id + ' \'s ws is closed at loop.');
     return;
   }
-  
+
+  if(self.u.client.ws.readyState != 1){
+    console.log(self.session_id + ' \'s ws is closed at ws status.');
+    return;
+  }
+
   // 发送文件完事儿后，继续发送文件
   self.u.client.sendFile(Config.send_file, self.to, '', function(result) {
     if (result.err) {
@@ -70,6 +76,10 @@ sender.prototype.start_send = function() {
 sender.prototype.stop_send = function() {
   this.loop == false;
   var self = this;
+  if (!self.u.client.ws) {
+    console.log(self.session_id + ' \'s ws is closed at stop_send.');
+    return;
+  }
   self.u.client.close();
 };
 
